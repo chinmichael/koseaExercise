@@ -29,6 +29,10 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
+		
+		String userid = request.getParameter("userid");
+		String userpw = request.getParameter("userpw");
 		
 	}
 

@@ -11,8 +11,8 @@
 <a href = "">가입하기</a>
 </div>
 <form action = "login.do" method = "post">
-아이디 : <input type = "text" name = "ID" size = "12" placeholder="계정" /><br/>
-암&nbsp;호 : <input type = "password" name = "PWD" size = "12" /><br/>
+아이디 : <input type = "text" name = "userid" size = "12" placeholder="계정" /><br/>
+암&nbsp;호 : <input type = "password" name = "userpw" size = "12" /><br/>
 <input type = "submit" value = "로그인" /><input type = "reset" value = "취소">
 </form>
 </body>

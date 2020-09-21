@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org./dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="mappingExercise"> <!-- DB연동을 여러개 잡을 수 있기 때문에 복수형 -->
+		<environment id="mappingExercise">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="username" value="koseaex"/>
+				<property name="password" value="kosea2019a"/>
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource ="mapper/userMapper.xml"/>
+	</mappers>
+</configuration>
