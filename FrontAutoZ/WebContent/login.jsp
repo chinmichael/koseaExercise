@@ -8,7 +8,7 @@
 </head>
 <body>
 <div align="right">
-<a href = "">가입하기</a>
+<a href = "template.jsp?BODY=userjoin.jsp">가입하기</a>
 </div>
 <form action = "login.do" method = "post">
 아이디 : <input type = "text" name = "userid" size = "12" placeholder="계정" /><br/>

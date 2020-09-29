@@ -42,10 +42,32 @@ a:hover{
 td.main{
 	background-color:lime;
 }
+.btn{
+	border:none;
+	color:white;
+	padding:15px 32px;
+	text-align:center;
+	text-decoration:none;
+	display:iline-block;
+	font-size:16px;
+	maring:4px 2px;
+	cursor:pointer;
+	background-color:orange;
+}
+.sub{
+	background-color:lightblue;
+}
 </style>
 </head>
 <body>
 <h2 align="center"><img alt="" src ="img/logo.gif"></h2>
+<table class = "main">
+<tr><td><div align="center">
+<button class = "btn" onclick="menu1()">야구구단 등록</button>
+<button class = "btn" onclick="menu2()">야구구단 목록</button>
+<button class = "btn" onclick="menu3()">야구선수 등록</button>
+</div></td></tr></table>
+
 <table class = "main" width = "100%">
 <tr>
 	<td class = "main" width="20%" height="300" valign="top">
@@ -62,10 +84,11 @@ td.main{
 		<div id = "menus">
 			<a href="template.jsp?BODY=intro.jsp">소개</a><br/>
 			<a href="template.jsp?BODY=bbsinput.jsp">게시글 쓰기</a><br/>
-			<a href="">게시글 목록</a><br/>
-			<a href="">상품 등록</a><br/>
-			<a href="">상품 목록</a><br/>
-			<a href="">장바구니 보기</a><br/>
+			<a href="/FrontAutoZ/bbsList.do">게시글 목록</a><br/>
+			<a href="template.jsp?BODY=penaltyGame.jsp">패널티게임</a><br>
+			<a href="template.jsp?BODY=inputItem.jsp">상품 등록</a><br/>
+			<a href="/FrontAutoZ/itemList">상품 목록</a><br/>
+			<a href="cartList.do">장바구니 보기</a><br/>
 			<a href="">답글 및 이미지 게시판</a><br/>
 			<a href="">이미지 게시판 목록</a>
 		</div>
@@ -76,5 +99,17 @@ td.main{
 </tr>
 </table>
 <h3 align = "center">CopyLeft 2020. FrontAtoZ</h3>
+
+<script type = "text/javascript">
+	function menu1() {
+		location.href = "getBaseballHome";
+	}
+	function menu2() {
+		location.href = "getBaseballList";
+	}
+	function menu3() {
+		location.href = "getBaseballTeam";
+	}
+</script>
 </body>
 </html>

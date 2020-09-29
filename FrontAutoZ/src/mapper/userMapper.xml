@@ -6,4 +6,68 @@
 		select * from member_ex
 		where userid = #{userid}
 	</select>
+	
+	<select id="maxSeq" resultType = "Integer">
+		select max(seqno) from bbs
+	</select>
+	
+	<insert id = "putBBS" parameterType = "dto.BBSVO">
+		insert into bbs (seqno,title,content,userid) values (#{seqno},#{title},#{content},#{userid})
+	</insert>
+	
+	<select id = "getBBS" parameterType = "Integer" resultType = "dto.BBSVO">
+	select seqno, title, userid, to_char(bbs_date, 'yyyy/mm/dd') "bbs_date"
+	from (select rownum rnum, seqno, title, userid, bbs_date
+			from (select * from bbs order by seqno desc))
+	where (rnum>((#{pageno} - 1) * 5)) and (rnum <![CDATA[<]]> ((#{pageno} - 1) * 5) + 6)
+	</select>
+	
+	<select id = "getBBSCount" resultType = "Integer">
+		select count(*) from bbs
+	</select>
+	
+	<select id = "getBBSRead" parameterType = "Integer" resultType = "dto.BBSVO">
+		select seqno, title, content, userid, to_char(bbs_date, 'yyyy/mm/dd') "bbs_date" from bbs where seqno = #{seqno}
+	</select>
+	
+	<insert id = "joinAccount" parameterType = "dto.MemberVO">
+		insert into member_ex (userid, userpw, username, usernick, phone)
+		values (#{userid},#{userpw},#{username},#{usernick},#{phone})
+	</insert>
+	
+	<select id = "getItemID" parameterType = "String" resultType = "Integer">
+		select count(*) from selling_item where code = #{code}
+	</select>
+	
+	<insert id = "putItem" parameterType = "dto.ItemVO">
+		insert into selling_item values(#{code},#{name},#{price},#{info},#{origin})
+	</insert>
+	
+	<select id = "getItem" parameterType= "Integer" resultType = "dto.ItemVO">
+		select code, name, price, origin
+			from (select rownum rnum, code, name, price, origin, floor((rownum - 1)/5) + 1 pageNumber
+				from (select * from selling_item))
+			where pageNumber = #{pageno}
+	</select>
+	
+	
+	<select id = "getItemCount" resultType = "Integer">
+		select count(*) from selling_item
+	</select>
+	
+	<select id="getItemNamePrice" parameterType="String" resultType="dto.CartItemVO">
+		select name, price from selling_item where code = #{code}
+	</select>
+	
+	<select id="getMaxSeqnoCart" resultType="Integer">
+		select max(seqno) from my_cart
+	</select>
+	
+	<insert id = "putCart" parameterType="dto.CartItemVO">
+		insert into my_cart values(#{seqno}, #{code}, #{num}, #{userid})
+	</insert>
+	
+	<select id="getCart" parameterType="String" resultType="dto.CartItemVO">
+		select * from my_cart where userid = #{userid}
+	</select>
 </mapper>

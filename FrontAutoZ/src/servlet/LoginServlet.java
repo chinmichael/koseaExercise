@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import action.Crud;
+import dto.CartItemVO;
+import dto.CartVO;
+import dto.MemberVO;
 
 /**
  * Servlet implementation class LoginServlet
@@ -28,12 +35,39 @@ public class LoginServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		request.setCharacterEncoding("UTF-8");
 		
 		String userid = request.getParameter("userid");
 		String userpw = request.getParameter("userpw");
+		Crud crud = new Crud();
+		MemberVO member = crud.selectMember(userid);
+		String result = "";
 		
+		if(member != null) {
+			if(userpw.equals(member.getUserpw())) {
+				HttpSession session = request.getSession();
+				session.setAttribute("LOGIN", member);
+				
+				List<CartItemVO> items = crud.getCart(userid);
+				if(items != null) {
+					CartVO cart = new CartVO(userid);
+					Iterator itr = items.iterator();
+					while(itr.hasNext()) {
+						CartItemVO item = (CartItemVO) itr.next();
+						cart.getCodeList().add(item.getCode());
+						cart.getNumList().add(item.getNum());
+					}
+					session.setAttribute("CART", cart);
+				}
+			} else {
+				result = "Check your password";
+			}
+		} else {
+			result = "Check your ID";
+		}
+		
+		String url = "template.jsp?BODY=loginResult.jsp?loginMessage=" + result;
+		response.sendRedirect(url);
 	}
 
 }

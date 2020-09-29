@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action ="logout.do">
-	안녕하세요? ${sessionScope.LOGIN }님<br>
+	안녕하세요? ${sessionScope.LOGIN.getUserid() }님<br>
 	<input type = "submit" value="로그아웃">
 </form>
 </body>
