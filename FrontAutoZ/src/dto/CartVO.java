@@ -63,4 +63,9 @@ public class CartVO {
 			crud.putCart(item);
 		}
 	}
+	
+	public void deleteDB(String userid) {
+		Crud crud = new Crud();
+		crud.deleteCart(userid);
+	}
 }

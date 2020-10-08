@@ -70,4 +70,8 @@
 	<select id="getCart" parameterType="String" resultType="dto.CartItemVO">
 		select * from my_cart where userid = #{userid}
 	</select>
+	
+	<select id="deleteCart" parameterType="String">
+		delete from my_cart where userid = #{userid}
+	</select>
 </mapper>

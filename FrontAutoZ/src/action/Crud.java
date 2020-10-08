@@ -258,4 +258,19 @@ public class Crud {
 		
 		return items;
 	}
+	
+	public Integer deleteCart(String userid) {
+		SqlSession session = getSession();
+		Integer result = null;
+		
+		try {
+			String stmt = namespace+".deleteCart";
+			result = session.delete(stmt, userid);
+			if(result > 0) session.commit();
+			else session.rollback();
+		} finally {
+			session.close();
+		}
+		return result;
+	}
 }

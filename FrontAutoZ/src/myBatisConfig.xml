@@ -37,5 +37,6 @@
 	<mappers>
 		<mapper resource ="mapper/userMapper.xml"/>
 		<mapper resource ="mapper/baseballMapper.xml"/>
+		<mapper resource ="mapper/uploadMapper.xml"/>
 	</mappers>
 </configuration>

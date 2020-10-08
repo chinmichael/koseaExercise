@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.uploadMapper"><!-- 혼동을 피하기 위해 보통 패키지명.파일명 -->
+	<select id="getMaxId" resultType = "Integer">
+		select max(writing_id) from image_board
+	</select>
+	
+	<insert id="putImageWriting" parameterType="dto.WritingVO">
+		insert into image_board (writing_id, group_id, order_no, parent_id, writer_name, email, image_name, password, title, content)
+		values (#{writing_id}, #{group_id}, #{order_no}, #{parent_id}, #{writer_name}, #{email}, #{image_name}, #{password}, #{title}, #{content})
+	</insert>
+	
+	<select id="getTotalCnt" resultType="Integer">
+		select count(*) from image_board
+	</select>
+	
+	<select id="getImageList" parameterType ="dto.Condition" resultType="dto.WritingVO">
+		select writing_id, parent_id, group_id, order_no, writer_name, email, password, image_name, title, content, to_char(register_date, 'YYYY/MM/DD') "register_date"
+			from (select a.*, rownum rn from
+				(select * from image_board order by group_id desc, order_no asc) a)
+			where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getImage" parameterType="Integer" resultType="dto.WritingVO">
+		select * from image_board where writing_id = #{no}
+	</select>
+	
+	<delete id="deleteImage" parameterType="Integer">
+		delete from image_board where writing_id = #{id}
+	</delete>
+	
+	<update id="modifyImage" parameterType="dto.WritingVO">
+		update image_board set title = #{title}, writer_name = #{writer_name}, email = #{email}, content = #{content}, image_name = #{image_name} where writing_id = #{writing_id}
+	</update>
+	
+	<select id ="selectRownum" parameterType="Integer" resultType="Integer">
+		select rn	
+			from (select a.*, rownum rn
+				from (select writing_id, group_id, order_no from image_board order by group_id desc, order_no asc)a
+			) where writing_id = #{id}	
+	</select>
+	
+	<update id="updateOrderNo" parameterType="dto.WritingVO">
+		update image_board set order_no = order_no + 1
+		where group_id = #{group_id} and order_no >= #{order_no}
+	</update>
+</mapper>

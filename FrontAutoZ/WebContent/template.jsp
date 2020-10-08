@@ -89,8 +89,8 @@ td.main{
 			<a href="template.jsp?BODY=inputItem.jsp">상품 등록</a><br/>
 			<a href="/FrontAutoZ/itemList">상품 목록</a><br/>
 			<a href="cartList.do">장바구니 보기</a><br/>
-			<a href="">답글 및 이미지 게시판</a><br/>
-			<a href="">이미지 게시판 목록</a>
+			<a href="/FrontAutoZ/WriteFormServlet">답글 및 이미지 게시판</a><br/>
+			<a href="imageList">이미지 게시판 목록</a>
 		</div>
 	</td>
 	<td id = "content">
